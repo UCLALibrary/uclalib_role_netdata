@@ -6,4 +6,5 @@
     --stable-channel
     --dont-wait
   args:
+    executable: "/bin/bash"
     creates: "/usr/sbin/netdata"
