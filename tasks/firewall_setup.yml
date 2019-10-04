@@ -3,6 +3,7 @@
 - name: Insert firewalld configuraiton
   blockinfile:
     path: "/etc/firewalld/zones/public.xml"
+    marker: "<!-- {mark} NETDATA MANAGED BLOCK -->"
     block: |
         <rule family="ipv4">
           <source address="164.67.152.0/24"/>
