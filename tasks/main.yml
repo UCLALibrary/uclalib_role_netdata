@@ -1,0 +1,8 @@
+---
+
+- import_tasks: vhost_setup.yml
+
+- import_tasks: firewall_setup.yml
+  when: netdata_restrict_access == "yes"
+
+- import_tasks: install_netdata.yml

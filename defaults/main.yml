@@ -1,0 +1,9 @@
+---
+
+httpd_port: "30462"
+
+server_shortname: ""
+
+netdata_ssl_config: "yes"
+
+netdata_restrict_access: "yes"

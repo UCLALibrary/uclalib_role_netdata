@@ -1,0 +1,14 @@
+---
+
+- name: Insert firewalld configuraiton
+  blockinfile:
+    path: "/etc/firewalld/zones/public.xml"
+    block: |
+        <rule family="ipv4">
+          <source address="164.67.152.0/24"/>
+          <port port="{{ httpd_port }}" protocol="tcp"/>
+          <accept/>
+        </rule>
+    insertbefore: "</zone>"
+  notify:
+    - reload firewalld

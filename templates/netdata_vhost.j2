@@ -1,0 +1,31 @@
+Listen {{ httpd_port }}
+<VirtualHost *:{{ httpd_port }}>
+
+  ServerName {{ server_shortname }}.library.ucla.edu
+
+  ErrorLog /var/log/httpd/netdata/error_log
+  CustomLog /var/log/httpd/netdata/access_log combined
+
+  HostnameLookups Off
+
+  UseCanonicalName On
+
+  RewriteEngine On
+  ProxyRequests Off
+  ProxyPreserveHost On
+
+  <Proxy *>
+      Require all granted
+  </Proxy>
+
+  ProxyPass "/" "http://localhost:19999/" connectiontimeout=5 timeout=30 keepalive=on
+  ProxyPassReverse "/" "http://localhost:19999/"
+
+{% if netdata_ssl_config == "yes" %}
+  SSLEngine on
+  SSLCertificateFile      /etc/pki/tls/certs/{{ server_shortname }}_library_ucla_edu_cert.cer
+  SSLCertificateChainFile /etc/pki/tls/certs/{{ server_shortname }}_library_ucla_edu_interm.cer
+  SSLCertificateKeyFile   /etc/pki/tls/private/{{ server_shortname }}.library.ucla.edu.key
+{% endif %}
+
+</VirtualHost>

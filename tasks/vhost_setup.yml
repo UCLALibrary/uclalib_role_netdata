@@ -1,0 +1,25 @@
+---
+
+- name: Create Netdata Apache HTTPD log directory
+  file:
+    path: "/var/log/httpd/netdata"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+
+- name: Insert Netdata entry into HTTPD logrotate config
+  lineinfile:
+    path: "/etc/logrotate.d/httpd"
+    line: "/var/log/httpd/netdata/*log"
+    insertbefore: "BOF"
+
+- name: Put in place Netdata Apache HTTPD virtual host config file
+  template:
+    src: "netdata_vhost.j2"
+    dest: "/etc/httpd/vhosts.d/netdata.conf"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  notify:
+    - restart httpd
