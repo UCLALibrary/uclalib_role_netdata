@@ -23,6 +23,9 @@ Role Variables
 
 * `netdata_restrict_access` - defines if the access to netdata should be restricted via firewalld (default set to `yes`)
 
+* `netdata_config_path` - defines location of main netdata configuration file  (default set to `/etc/netdata/netdata.conf`)
+
+* `netdata_disable_alerts` - Boolean flag to disable all netdata alerts (default set to `True`)
 
 Dependencies
 ------------
