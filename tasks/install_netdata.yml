@@ -9,11 +9,13 @@
     executable: "/bin/bash"
     creates: "/usr/sbin/netdata"
 
-- name: Disable health alarm emails
-  lineinfile:
-    path: "{{ netdata_health_alarm_config_path }}"
-    regexp: '^SEND_EMAIL='
-    line: 'SEND_EMAIL="NO"'
+- name: Disable health alarm alerts
+  ini_file:
+    path: "{{ netdata_config_path }}"
+    section: "health"
+    option: "enabled"
+    value: "no"
+    state: present
   notify:
     - reload netdata
-  when: netdata_send_email == "no"
+  when: netdata_disable_alerts

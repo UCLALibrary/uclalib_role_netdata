@@ -8,5 +8,5 @@ netdata_ssl_config: "yes"
 
 netdata_restrict_access: "yes"
 
-netdata_health_alarm_config_path: "/usr/lib/netdata/conf.d/health_alarm_notify.conf"
-netdata_send_email: "no"
+netdata_config_path: "/etc/netdata/netdata.conf"
+netdata_disable_alerts: true
