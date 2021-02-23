@@ -23,9 +23,15 @@ Listen {{ httpd_port }}
 
 {% if netdata_ssl_config == "yes" %}
   SSLEngine on
+{% if certbot_certificates is defined %}
+  SSLCertificateFile      {{ certbot_baseconfig_path }}/live/{{ (certbot_certificates|list)[0] }}/cert.pem
+  SSLCertificateChainFile {{ certbot_baseconfig_path }}/live/{{ (certbot_certificates|list)[0] }}/chain.pem
+  SSLCertificateKeyFile   {{ certbot_baseconfig_path }}/live/{{ (certbot_certificates|list)[0] }}/privkey.pem
+{% else %}
   SSLCertificateFile      /etc/pki/tls/certs/{{ server_shortname }}.library.ucla.edu_cert.cer
   SSLCertificateChainFile /etc/pki/tls/certs/{{ server_shortname }}.library.ucla.edu_interm.cer
   SSLCertificateKeyFile   /etc/pki/tls/private/{{ server_shortname }}.library.ucla.edu.key
+{% endif %}
 {% endif %}
 
 </VirtualHost>
