@@ -10,3 +10,6 @@ netdata_restrict_access: "yes"
 
 netdata_config_path: "/etc/netdata/netdata.conf"
 netdata_disable_alerts: true
+
+# from uclalib_role_certbot
+certbot_baseconfig_path: "/etc/letsencrypt"
